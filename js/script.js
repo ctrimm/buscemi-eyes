@@ -33,7 +33,7 @@ function initialize(){
     if(playing) { clearInterval(playing); }
     playing = setInterval(function() {
         drawToCanvas(video, canvas, ctx, glasses);
-    }, 50);
+    }, 5);
 }
 
 function drawToCanvas(video, canvas, ctx, glasses) {
@@ -42,7 +42,7 @@ function drawToCanvas(video, canvas, ctx, glasses) {
     canvas = canvas,
     i;
 
-    ctx.drawImage(video, 0, 0, 200,200);
+    ctx.drawImage(video, 0, 0, 600,600);
 
     pixels = ctx.getImageData(0,0,canvas.width,canvas.height);
 
