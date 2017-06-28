@@ -1,25 +1,22 @@
 var fps = 4;
 
-// Grab elements, create settings, etc.
+// grab the video element (currently hidden via inline css...)
 var video = document.getElementById('videoElement');
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Get access to the camera!
+    // Get access to the camera
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
         navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-            // OK, we have access to the camera.
-            // Let's initialize everything
-
+            // Access to the camera was OK'd
             video.src = window.URL.createObjectURL(stream);
-            video.play();
+            // Time to initialize everything
             initialize();
         });
     }
 });
 
+//Preps the document
 function initialize(){
-    // Prep the document
     video = document.querySelector('#videoElement');
     
     glasses = new Image();
@@ -28,10 +25,7 @@ function initialize(){
     canvas = document.getElementById("buscemiMe");
     ctx = canvas.getContext("2d");
 
-    playing = false;
-
-    if(playing) { clearInterval(playing); }
-    playing = setInterval(function() {
+    setInterval(function() {
         drawToCanvas(video, canvas, ctx, glasses);
     }, 5);
 }
@@ -51,7 +45,7 @@ function drawToCanvas(video, canvas, ctx, glasses) {
                                     "interval" : 5,
                                     "min_neighbors" : 1 });
 
-    // Draw eyes on everyone!
+    // Draw eyes on every face match
     for (i = 0; i < comp.length; i++) {
         ctx.drawImage(glasses, comp[i].x, comp[i].y,comp[i].width, comp[i].height);
     }
